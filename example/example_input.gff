@@ -1,4 +1,4 @@
-##sequence-region ScSUXzt_101122 1 582513
+##sequence-region
 ScSUXzt_101122	RepeatMasker	dispersed_repeat	649	668	16	+	.	Target=(T)n 1 20
 ScSUXzt_101122	RepeatMasker	dispersed_repeat	3452	3659	1417	-	.	Target=rnd-2_family-45 5 208
 ScSUXzt_101122	RepeatMasker	dispersed_repeat	3779	4164	2214	+	.	Target=rnd-5_family-1905 2 574
