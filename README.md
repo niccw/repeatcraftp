@@ -76,7 +76,7 @@ To incoporate the LTR_FINDER annotation, the path (absolute path is preferable, 
 
 Finally, **gap_size** refer to the maximum distance between two constitute repeats to be merged, by default it is 150 bp.
 ***
-References
+#### References
 
 Smit, AFA, Hubley, R & Green, P. RepeatMasker Open-4.0. 2013-2015 <http://www.repeatmasker.org>.
 
