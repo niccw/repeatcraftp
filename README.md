@@ -8,7 +8,7 @@ RepeatCraft pipeline incorporates tools for repeat element classification based 
 ![fig.1](figures/consensus.png)
 After the repeat-based repeat identification and annotation (i.e. RepeatModeler and RepeatMasker (Smit, 2013-2015)), fragments of repeats beloning to the same repeat family can be found in certain genomic region (for example: blcok b,c,d in track B). These repeats are closely spanced and non-overlap in the consensus sequence. Multiple counting of repeats may affect the result of downstream analysis (e.g. age estimation). Therefore, RepeatCraft is designed as a easy-to-use tool for mering repeat fragments. Group label are first added to the attribute field of repeats to be merge, then RepeatCraft will merge the repeat based on the group label and LTR label (see below).
 
-##### Group repeats based on annotation from LTR_FINDER
+##### Annotation from LTR_FINDER
 ![fig.2](figures/ltrfig.png)
 LTR_FINDER (Xu and Wang, 2017) is a popular structural-based LTR (Long Tandem Repeat) identification tool. It identify the full-length LTR by searching structural features. Using the results from LTR_FINDER, RepeatCraft merge the LTR annotated in the RepeatMasker GFF (which belong to the same LTR subgroup) and decrease the degree of fragmentization. 
 
@@ -19,7 +19,7 @@ Short repeats are also labelled in the early step. Repeats with length less than
 <img src="figures/RepeatCraft_workflow_resize.png" width="400">
 
 #### Run RepeatCraft
-RepeatCraft can be ran by calling **repatcraft.py**, it takes the following arguments and options:
+Simply run RepeatCraft by calling **repeatcraft.py**, it takes the following arguments and options:
 ```
 usage: repeatcraft.py [-h] [-r RMGFF] [-u RMOUT] [-c CONFIG] [-o OUTPUT]
                       [-m MERGE]
@@ -52,5 +52,33 @@ The example folder contains the sample inputs **example_input.gff** **example_in
 By default, the merge flag is **False** and RepeatCraft would only add label to the attribute column, (example output: **example_rclabel.gff**). If `-m True`, the repeats will be merged based on the labels added in the previous two step (example output: **example_rmerge.gff**, and the strand (+/-) will follow the orientation of the largest repeat in the group.
 
 
-##### Parameters in repeatcraft.cfg
+#### Parameters in repeatcraft.cfg
+Other options can be set in the **repeatcraft.cgf**.
+```
+# Label short TEs
+shortTE_size: 100
+mapfile: None
+
+# LTR grouping (based on LTR_FINER result)
+ltr_finder_gff: None
+max_LTR_size: 10000
+LTR_flanking_size: 200
+
+# TEs grouping
+gap_size: 150
+```
+
+If **mapfile.tsv** (see example) is not provided, a unite size (default = 100 bp) will by applied to all repeat classes. Since certain repeat classes (i.e. SINE) have short length compare to others (i.e. LTR or LINE), it is recommend to label different classes using different length threshold.
+
+To incoporate the LTR_FINDER annotation, the path (absolute path is preferable, if relative path is used it should be relative to where the **repeatcraft.py** in). The **max_LTR_size** helps filter out overlapping LTR annotation from LTR_FINDER, and  **LTR_flanking_size** allows shift of LTR annotated by RepeatMasker. The following figure illustrate how these two parameter work.
+
+![fig.4](figures/fuseltr_param.png )
+
+Finally, **gap_size** refer to the maximum distance between two constitute repeats to be merged, by default it is 150 bp.
+***
+References
+
+Smit, AFA, Hubley, R & Green, P. RepeatMasker Open-4.0. 2013-2015 <http://www.repeatmasker.org>.
+
+Xu, Z., & Wang, H. (2007). LTR_FINDER: an efficient tool for the prediction of full-length LTR retrotransposons. Nucleic Acids Research, 35(Web Server issue), W265–W268. http://doi.org/10.1093/nar/gkm286
 
