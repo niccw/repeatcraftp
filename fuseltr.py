@@ -83,16 +83,3 @@ def fuseltr(rmgff,ltrgff_p,ltr_maxlength,ltr_flank,outfile):
 	sys.stdout.close()
 	sys.stdout = stdout
 
-
-
-
-
-
-
-
-
-
-
-
-
-
