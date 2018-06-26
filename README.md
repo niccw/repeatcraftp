@@ -22,9 +22,9 @@ Short repeats are also labelled in the early step. Repeats with length less than
 Simply run RepeatCraft by calling **repeatcraft.py**, it takes the following arguments and options:
 ```
 usage: repeatcraft.py [-h] [-r RMGFF] [-u RMOUT] [-c CONFIG] [-o OUTPUT]
-                      [-m MERGE]
+                      [-m MODE]
 
-RepeatCraft pipeline for improving repeat elements annotationby defragments
+RepeatCraft pipeline for improving repeat elements annotation by defragments
 closely spanced repeat elements,based on sequence similarity and structural
 features from different annotators
 
@@ -35,12 +35,10 @@ optional arguments:
   -u RMOUT, --rmout RMOUT
                         RepeatMasker OUT
   -c CONFIG, --config CONFIG
-                        Configuration file. Default = repeatcraft.cfg
+                        Configuration file
   -o OUTPUT, --output OUTPUT
                         Output file name
-  -m MERGE, --merge MERGE
-                        Merge the GFF. Default = False, RepeatCraft will only
-                        add LTRgroup and TEgroup label at theattribute column
+  -m MODE, --mode MODE  Merge mode. strict or loose. Default = strict
 ```
 Example run:
 `./repeatcraft.py -r example_input.gff -u example_input.out -c repeatcraft.cfg -o example -m True`
