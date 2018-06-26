@@ -6,7 +6,7 @@ RepeatCraft pipeline incorporates tools for repeat element classification based 
 #### What does RepeatCraft do?
 ##### Merge repeat 'fragments'
 ![fig.1](figures/consensus.png)
-After the repeat-based repeat identification and annotation (i.e. RepeatModeler and RepeatMasker (Smit, 2013-2015)), fragments of repeats beloning to the same repeat family can be found in certain genomic regions (for example: blcok b,c,d in track B). These repeats are closely spanced and non-overlap in the consensus sequence. Multiple counting of repeats may affect the result of downstream analysis (e.g. age estimation). Therefore, we develope RepeatCraft as a easy-to-use tool for mering repeat fragments, with flexible parameter setting. Group labels are first added to the attribute field of repeats to be merge, then RepeatCraft merges the repeat based on the group label and LTR label (see below).
+After the repeat-based repeat identification and annotation (i.e. RepeatModeler and RepeatMasker (Smit, 2013-2015)), fragments of repeats beloning to the same repeat family can be found in certain genomic regions (for example: blcok b,c,d in track B). These repeats are closely spanced and non-overlap in the consensus sequence. Multiple counting of repeats may affect the result of downstream analysis (e.g. age estimation). Therefore, we develope RepeatCraft as a easy-to-use tool for mering repeat fragments, with flexible parameter setting. Group labels are first added to the attribute field of repeats to be merge, then RepeatCraft merges the repeat based on the group label and LTR label (see below). The strict mode only merge consective repeats while loose mode also works on non-executive repeats, the annotation information of other repeats (i.e. simple repeats) between the fragments are not modified.
 
 ##### Annotation from LTR_FINDER
 ![fig.2](figures/ltrfig.png)
@@ -47,7 +47,7 @@ Example run:
 The example folder contains the sample inputs **example_input.gff**, **example_input.out** (GFF and OUT files from RepeatMasker), the configuration file **repeatcraft.cfg** and the mapfile **mapfile.tsv** which is used in short TEs labelling. 
 
 ###### Outputs
-By default, the merge flag is **False** and RepeatCraft would only add labels to the attribute column, (example output: **example_rclabel.gff**). If `-m True`, the repeats will be merged based on the labels added in the previous steps (example output: **example_rmerge.gff**, and the strand (+/-) will follow the orientation of the largest repeat in the group.
+By default, the merge flag is **False** and RepeatCraft would only add labels to the attribute column, (example output: **example_rclabel.gff**). In addition, the repeats will be merged based on the labels added in the previous steps (example output: **example_rmerge.gff**, and the strand (+/-) will follow the orientation of the fragment with longest consensus overlapping in the group.
 
 
 #### Parameters in repeatcraft.cfg
