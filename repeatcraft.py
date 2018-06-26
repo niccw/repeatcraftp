@@ -128,8 +128,8 @@ else:
 
 # True merge
 sys.stderr.write("Step 5: Merging GFF records by labels...\n")
-outputnamemerge = outputname + ".rmerge.gff.tmp"
-outputnamemerge_tobesort = outputname + ".rmerge.gff"
+outputnamemerge = outputname + ".rmerge.gff"
+outputnamemerge_tobesort = outputname + ".rmerge.gff.tmp"
 if checkltr:
 	truemergeltrm.trumergeLTR(rmgff=outputnamelabel, outfile="ltrmerge.tmp.gff")
 	if mergemode == "strict":
@@ -153,8 +153,9 @@ else:
 sys.stderr.write("Removing tmp files...\n")
 os.remove("tmp01.gff")
 os.remove("tmp02.gff")
-os.remove(outputnamelabel_tobesort)
-os.remove(outputnamemerge_tobesort)
+if mergemode == "loose":
+	os.remove(outputnamelabel_tobesort)
+	os.remove(outputnamemerge_tobesort)
 if checkltr:
 	os.remove("tmp03.gff")
 	os.remove("ltrmerge.tmp.gff")
