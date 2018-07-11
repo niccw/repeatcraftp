@@ -33,7 +33,7 @@ def fuseltr(rmgff,ltrgff_p,ltr_maxlength,ltr_flank,outfile):
 				for i in range(int(col[3])-ltr_flank,int(col[4])+ltr_flank+1):
 					ltrD[col[0]][i] = gpcnt
 				remark = col[0] + "_g" + str(gpcnt)
-				col[8] = col[8] + ";LTRgroup:" + remark
+				col[8] = col[8] + ";LTRgroup=" + remark
 				col = [str(i) for i in col]
 				ltrout.write("\t".join(col) + "\n")
 				lastChrom = col[0]
@@ -71,15 +71,28 @@ def fuseltr(rmgff,ltrgff_p,ltr_maxlength,ltr_flank,outfile):
 				print(*col,sep="\t")
 			else:
 				if len(n.keys()) == 1:
-					col[8] =  col[8] + ";LTRgroup:" + col[0] + "_g" + str(list(n.keys())[0])
+					col[8] =  col[8] + ";LTRgroup=" + col[0] + "_g" + str(list(n.keys())[0])
 				else:
 					for i in range(len(list(n.keys()))):
 						if i ==  0:
-							col[8] = col[8] + ";LTRgroup:" + col[0] + "_g" + str(list(n.keys())[i])
+							col[8] = col[8] + ";LTRgroup=" + col[0] + "_g" + str(list(n.keys())[i])
 						else:
 							col[8] = col[8] + "," + col[0] + "_g" + str(list(n.keys())[i])
 				print(*col,sep="\t")
 
 	sys.stdout.close()
 	sys.stdout = stdout
+
+
+
+
+
+
+
+
+
+
+
+
+
 
