@@ -109,6 +109,6 @@ def trumergeLTR(rmgff,outfile):
 					print(*col, sep="\t")
 
 	# print the last row
-	print(*d["col"],sep="\t")
+	#print(*d["col"],sep="\t")
 	sys.stdout.close()
 	sys.stdout = stdout
