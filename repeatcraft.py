@@ -8,6 +8,7 @@ import subprocess
 from subprocess import call
 
 import reformatm
+import combineGFFoverlapm
 import filtershortm
 import fuseltr
 import fusetem
@@ -15,6 +16,7 @@ import truemergeltrm
 import truemergetem
 import extraFuseTEm
 import extraTrueMergeTEm
+import rcStatm
 
 # Arguments
 parser = argparse.ArgumentParser(description="RepeatCraft pipeline for improving repeat elements annotation by defragments closely spanced repeat elements,based on sequence similarity and structural features from different annotators")
@@ -89,6 +91,16 @@ if param["ltrgff"] != "None":
 # Reformat GFF
 sys.stderr.write("Step 1: Reformating GFF...\n")
 reformatm.reformat(rmgff=rmgffp, rmout=rmoutp, outfile="tmp01.gff")
+# Reformat and fuse LTR_FINDER GFF
+sys.stderr.write("       Parsing LTR_FINDER GFF...\n")
+filterrow = "grep 'LTR_retrotransposon' " + param["ltrgff"] + " > parseltrfinder.tmp"
+cutcolumn = "cut -f1-8 " + "parseltrfinder.tmp" + "|sort|uniq > parseltrfinder.tmp2"
+sortgff = "sort -k1,1 -k4,4n -k5,5n parseltrfinder.tmp2 > parseltrfinder.tmp"
+subprocess.run(filterrow,shell=True)
+subprocess.run(cutcolumn,shell=True)
+subprocess.run(sortgff,shell=True)
+combineGFFoverlapm.combineGff(ltrgff="parseltrfinder.tmp",column=8,outfile="ltrfinder_reformat.gff")
+param["ltrgff"] =  "ltrfinder_reformat.gff"
 
 # Label short TEs
 sys.stderr.write("Step 2: Labelling short TEs...\n")
@@ -128,12 +140,13 @@ else:
 
 # True merge
 sys.stderr.write("Step 5: Merging GFF records by labels...\n")
+strictoutputnamemerge = outputname + ".rmerge.gff"
 outputnamemerge = outputname + ".rmerge.gff"
 outputnamemerge_tobesort = outputname + ".rmerge.gff.tmp"
 if checkltr:
 	truemergeltrm.trumergeLTR(rmgff=outputnamelabel, outfile="ltrmerge.tmp.gff")
 	if mergemode == "strict":
-		truemergetem.truemergete(rmgff="ltrmerge.tmp.gff", outfile=outputnamemerge)
+		truemergetem.truemergete(rmgff="ltrmerge.tmp.gff", outfile=strictoutputnamemerge)
 	else:
 		extraTrueMergeTEm.extratruemergete(gffp="ltrmerge.tmp.gff",outfile=outputnamemerge_tobesort )
 		c = "sort -k1,1 -k4,4n -k5,5n " + outputnamemerge_tobesort + " >" +outputnamemerge
@@ -141,22 +154,32 @@ if checkltr:
 
 else:
 	if mergemode == "strict":
-		truemergetem.truemergete(rmgff=outputnamelabel, outfile=outputnamemerge)
+		truemergetem.truemergete(rmgff=outputnamelabel, outfile=strictoutputnamemerge)
 	else:
 		extraTrueMergeTEm.extratruemergete(gffp=outputnamelabel, outfile=outputnamemerge_tobesort )
 		c = "sort -k1,1 -k4,4n -k5,5n " + outputnamemerge_tobesort + " >" + outputnamemerge
 		subprocess.run(c, shell=True)
 
 
+sys.stderr.write("Step 6: Writing stat file..")
+statfname =  outputname + ".stat.txt"
+if mergemode == "strict":
+	rcStatm.rcstat(outputnamelabel,strictoutputnamemerge,statfname)
+else:
+	rcStatm.rcstat(outputnamelabel,outputnamemerge, statfname)
 
 # Remove tmp files
 sys.stderr.write("Removing tmp files...\n")
+os.remove("parseltrfinder.tmp")
+os.remove("parseltrfinder.tmp2")
+os.remove("ltrfinder_reformat.gff")
 os.remove("tmp01.gff")
 os.remove("tmp02.gff")
-if mergemode == "loose":
+if mergemode != "strict":
 	os.remove(outputnamelabel_tobesort)
 	os.remove(outputnamemerge_tobesort)
 if checkltr:
 	os.remove("tmp03.gff")
 	os.remove("ltrmerge.tmp.gff")
+
 sys.stderr.write("Done\n")

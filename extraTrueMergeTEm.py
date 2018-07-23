@@ -51,7 +51,6 @@ def extratruemergete(gffp,outfile):
 
 			# Extract attribute
 			cattrD = {}
-			print(col[8])
 			cattr = col[8].split(";")
 			for i in cattr:
 				k, v = i.split("=")

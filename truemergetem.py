@@ -128,6 +128,7 @@ def truemergete(rmgff,outfile):
 					print(*col, sep="\t")
 
 	# print the last row
-	print(*d["col"],sep="\t")
+	if len(d["col"]) > 0:
+		print(*d["col"],sep="\t")
 	sys.stdout.close()
 	sys.stdout = stdout
