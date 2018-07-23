@@ -41,7 +41,7 @@ optional arguments:
   -m MODE, --mode MODE  Merge mode. strict or loose. Default = strict
 ```
 Example run:
-`./repeatcraft.py -r example_input.gff -u example_input.out -c repeatcraft.cfg -o example -m True`
+`./repeatcraft.py -r example_input.gff -u example_input.out -c repeatcraft.cfg -o example -m strict`
 
 ###### Inputs
 The example folder contains the sample inputs **example_input.gff**, **example_input.out** (GFF and OUT files from RepeatMasker), the configuration file **repeatcraft.cfg** and the mapfile **mapfile.tsv** which is used in short TEs labelling. 
