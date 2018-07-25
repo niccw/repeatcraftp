@@ -6,18 +6,18 @@ RepeatCraft pipeline incorporates tools for repeat element classification based 
 #### What does RepeatCraft do?
 ##### Merge repeat 'fragments'
 ![fig.1](figures/consensus.png)
-After the repeat-based repeat identification and annotation (i.e. RepeatModeler and RepeatMasker (Smit, 2013-2015)), fragments of repeats beloning to the same repeat family can be found in certain genomic regions (for example: blcok b,c,d in track B). These repeats are closely spanced and non-overlap in the consensus sequence. Multiple counting of repeats may affect the result of downstream analysis (e.g. age estimation). Therefore, we develope RepeatCraft as a easy-to-use tool for mering repeat fragments, with flexible parameter setting. Group labels are first added to the attribute field of repeats to be merge, then RepeatCraft merges the repeat based on the TE family label and LTR label (see below). The strict mode only merge consective repeats while loose mode also works on non-executive repeats, the annotation information of other repeats (i.e. simple repeats) between the fragments are not modified.
+After the repeat-based repeat identification and annotation (i.e. RepeatModeler and RepeatMasker (Smit, 2013-2015)), fragments of repeats beloning to the same repeat family can be found in certain genomic regions (for example: blcok b,c,d in track B). These repeats are closely spanced and non-overlap in the consensus sequence. Multiple counting of repeats may affect the result of downstream analysis (e.g. age estimation). Therefore, we develope RepeatCraft as a easy-to-use tool for mering repeat fragments, with flexible parameter setting. Group labels are first added to the attribute field of repeats to be merge, then RepeatCraft merges the repeat based on the TE family label and LTR label (see below). The strict mode only merges consective repeats while loose mode also works on non-executive repeats, the annotation information of other repeats (i.e. simple repeats) between the fragments are not modified.
 
 ##### Annotation from LTR_FINDER (optional but highly recommended)
 ![fig.2](figures/ltrfig.png)
-RepeatCraft make use of the annotation information from LTR_FINDER (Xu and Wang, 2017), a popular structural-based LTR (Long Tandem Repeat) identification tool. It identify the full-length LTR by searching structural features. Using the results from LTR_FINDER, RepeatCraft merges the LTR annotated in the RepeatMasker GFF (which belong to the same LTR subgroup) and further decreases the degree of fragmentization. 
+RepeatCraft makes use of the annotation information from LTR_FINDER (Xu and Wang, 2017), a popular structural-based LTR (Long Tandem Repeat) identification tool. It identify the full-length LTR by searching structural features. Using the results from LTR_FINDER, RepeatCraft merges the LTR annotated in the RepeatMasker GFF (which belong to the same LTR subgroup) and further decreases the degree of fragmentization. 
 
 ##### Other
 Short repeats are also labelled in the early step. Repeats with length less than certain size (default = 100bp, except simple repeats,low complexity, satellite and snRNA; user can define the threshold for each repeat class in **mapfile.tsv**) would have a label of *shortTE=T* in the attribute column. The *shortTE* label are not used in merging repeat fragments, user can study the distribution of short read on the RepeatCraft web application by uploading the output.
 
 ###### General workflow of RepeatCraft
 <img src="figures/RepeatCraft_workflow_resize.png" width="400">
-
+***
 ### Run RepeatCraft
 Simply run RepeatCraft by calling **repeatcraft.py**, it takes the following arguments and options:
 ```
