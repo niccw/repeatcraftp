@@ -162,7 +162,7 @@ else:
 
 
 sys.stderr.write("Step 6: Writing stat file..")
-statfname =  outputname + ".stat.txt"
+statfname =  outputname + ".summary.txt"
 if mergemode == "strict":
 	rcStatm.rcstat(outputnamelabel,strictoutputnamemerge,statfname)
 else:
