@@ -17,7 +17,9 @@ Short repeats are also labelled in the early step. Repeats with length less than
 
 ###### General workflow of RepeatCraft
 <img src="figures/RepeatCraft_workflow_resize.png" width="400">
+
 ***
+
 ### Run RepeatCraft
 Simply run RepeatCraft by calling **repeatcraft.py**, it takes the following arguments and options:
 ```
