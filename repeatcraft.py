@@ -170,15 +170,18 @@ else:
 sys.stderr.write("Step 6: Writing stat file..")
 statfname =  outputname + ".summary.txt"
 if mergemode == "strict":
-	rcStatm.rcstat(outputnamelabel,strictoutputnamemerge,statfname)
+	if checkltr:
+		rcStatm.rcstat(rclabelp=outputnamelabel,rmergep=strictoutputnamemerge,outfile=statfname, ltrgroup = True)
+	else:
+		rcStatm.rcstat(rclabelp=outputnamelabel,rmergep=strictoutputnamemerge,outfile=statfname, ltrgroup = False)
 else:
-	rcStatm.rcstat(outputnamelabel,outputnamemerge, statfname)
+	if checkltr:
+		rcStatm.rcstat(rclabelp=outputnamelabel,rmergep=outputnamemerge,outfile= statfname, ltrgroup = True)
+	else:
+		rcStatm.rcstat(rclabelp=outputnamelabel,rmergep=outputnamemerge, outfile=statfname, ltrgroup = False)
 
 # Remove tmp files
 sys.stderr.write("Removing tmp files...\n")
-os.remove("parseltrfinder.tmp")
-os.remove("parseltrfinder.tmp2")
-os.remove("ltrfinder_reformat.gff")
 os.remove("tmp01.gff")
 os.remove("tmp02.gff")
 if mergemode != "strict":
@@ -187,5 +190,7 @@ if mergemode != "strict":
 if checkltr:
 	os.remove("tmp03.gff")
 	os.remove("ltrmerge.tmp.gff")
-
+	os.remove("parseltrfinder.tmp")
+	os.remove("parseltrfinder.tmp2")
+	os.remove("ltrfinder_reformat.gff")
 sys.stderr.write("Done\n")

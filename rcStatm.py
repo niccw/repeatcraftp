@@ -1,7 +1,7 @@
 import sys
 import re
 
-def rcstat(rclabelp,rmergep,outfile):
+def rcstat(rclabelp,rmergep,ltrgroup,outfile):
 
 	rlabel =  rclabelp
 	rmerge = rmergep
@@ -114,10 +114,13 @@ def rcstat(rclabelp,rmergep,outfile):
 	print("#2. Number of repeats (by class) merged by TEgroup and LTRgroup")
 	print("=============================================================")
 	for c in list(teD.keys()):
-		if re.search("LTR",c):
-			print(*[c,teD[c],ltrD[c]],sep="\t")
+		if ltrgroup:
+			if re.search("LTR",c):
+				print(*[c,teD[c],ltrD[c]],sep="\t")
+			else:
+				print(*[c,teD[c],""],sep="\t")
 		else:
-			print(*[c,teD[c],""],sep="\t")
+			print(*[c, teD[c], ""], sep="\t")
 
 	sys.stdout.close()
 	sys.stdout = stdout
