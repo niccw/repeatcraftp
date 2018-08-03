@@ -25,8 +25,8 @@ parser.add_argument("-u", "--rmout", help="RepeatMasker OUT", type=str)
 parser.add_argument("-c", "--config", help="Configuration file", type=str)
 parser.add_argument("-o", "--output", help="Output file name", default="repeatcraft.gff", type=str)
 parser.add_argument("-m", "--mode",
-                    help="Merge mode. strict or loose. Default = strict",
-                    default="strict", type=str)
+                    help="Merge mode. strict or loose. Default = loose",
+                    default="loose", type=str)
 args = parser.parse_args()
 
 if len(sys.argv) <= 1:
@@ -90,22 +90,28 @@ if param["ltrgff"] != "None":
 
 # Reformat GFF
 sys.stderr.write("Step 1: Reformating GFF...\n")
-reformatm.reformat(rmgff=rmgffp, rmout=rmoutp, outfile="tmp01.gff")
+reformatm.reformat(rmgff=rmgffp, rmout=rmoutp, outfile="tmp01.unsort.gff")
+sortrgff = "sort -k1,1 -k4,4n -k5,5n tmp01.unsort.gff > tmp01.gff"
+subprocess.run(sortrgff,shell=True)
+
 # Reformat and fuse LTR_FINDER GFF
-sys.stderr.write("       Parsing LTR_FINDER GFF...\n")
-filterrow = "grep 'LTR_retrotransposon' " + param["ltrgff"] + " > parseltrfinder.tmp"
-cutcolumn = "cut -f1-8 " + "parseltrfinder.tmp" + "|sort|uniq > parseltrfinder.tmp2"
-sortgff = "sort -k1,1 -k4,4n -k5,5n parseltrfinder.tmp2 > parseltrfinder.tmp"
-subprocess.run(filterrow,shell=True)
-subprocess.run(cutcolumn,shell=True)
-subprocess.run(sortgff,shell=True)
-combineGFFoverlapm.combineGff(ltrgff="parseltrfinder.tmp",column=8,outfile="ltrfinder_reformat.gff")
-param["ltrgff"] =  "ltrfinder_reformat.gff"
+if checkltr:
+	sys.stderr.write("       Parsing LTR_FINDER GFF...\n")
+	filterrow = "grep 'LTR_retrotransposon' " + param["ltrgff"] + " > parseltrfinder.tmp"
+	cutcolumn = "cut -f1-8 " + "parseltrfinder.tmp" + "|sort|uniq > parseltrfinder.tmp2"
+	sortgff = "sort -k1,1 -k4,4n -k5,5n parseltrfinder.tmp2 > parseltrfinder.tmp"
+	subprocess.run(filterrow,shell=True)
+	subprocess.run(cutcolumn,shell=True)
+	subprocess.run(sortgff,shell=True)
+	combineGFFoverlapm.combineGff(ltrgff="parseltrfinder.tmp",column=8,outfile="ltrfinder_reformat.gff")
+	param["ltrgff"] =  "ltrfinder_reformat.gff"
 
 # Label short TEs
 sys.stderr.write("Step 2: Labelling short TEs...\n")
-filtershortm.filtershortTE(rmgff="tmp01.gff", m=mfile, tesize=param["shortTEsize"], mapfile=param["mapfile"],
-                           outfile="tmp02.gff")
+if mfile:
+	filtershortm.filtershortTE(rmgff="tmp01.gff", m=mfile, tesize=param["shortTEsize"], mapfile=param["mapfile"],outfile="tmp02.gff")
+else:
+	filtershortm.filtershortTE(rmgff="tmp01.gff", m=False, tesize=param["shortTEsize"],outfile="tmp02.gff",mapfile=False)
 
 # Label LTR group and TE group
 if mergemode == "strict":
