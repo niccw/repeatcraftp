@@ -40,7 +40,7 @@ optional arguments:
                         Configuration file
   -o OUTPUT, --output OUTPUT
                         Output file name
-  -m MODE, --mode MODE  Merge mode. strict or loose. Default = strict
+  -m MODE, --mode MODE  Merge mode. strict or loose. Default = loose
 ```
 Example run:
 `./repeatcraft.py -r example_input.gff -u example_input.out -c repeatcraft.cfg -o example -m strict`
@@ -58,7 +58,7 @@ RepeatCraft generates 3 outputs:
 
 The example outputs (**example.rclabel.gff**, **example.rmerge.gff** and **example.summary.txt** can be found in the example folder)
 
-By default, RepeatCraft is in "strict" merging mode and only merge consective repeats. Repeats are merged based on the labels (TEgroup, LTRgroup) added from the previous steps, and the strand (+/-) will follow the orientation of the fragment with longest consensus overlapping in the group.
+By default, RepeatCraft is in "loose" merging mode. Repeats are merged based on the labels (TEgroup, LTRgroup) added from the previous steps, and the strand (+/-) will follow the orientation of the fragment with longest consensus overlapping in the group.
 
 
 #### Parameters in repeatcraft.cfg
