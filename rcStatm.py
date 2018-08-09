@@ -1,7 +1,7 @@
 import sys
 import re
 
-def rcstat(rclabelp,rmergep,ltrgroup,outfile):
+def rcstat(rclabelp,rmergep,outfile,ltrgroup=True):
 
 	rlabel =  rclabelp
 	rmerge = rmergep
