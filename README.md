@@ -21,7 +21,7 @@ Short repeats are also labelled in the early step. Repeats with length less than
 ***
 
 ### Run RepeatCraft
-Simply run RepeatCraft by calling **repeatcraft.py**, it takes the following arguments and options:
+Simply run RepeatCraft by calling **repeatcraft.py** (python >= 3.5), it takes the following arguments and options:
 ```
 usage: repeatcraft.py [-h] [-r RMGFF] [-u RMOUT] [-c CONFIG] [-o OUTPUT]
                       [-m MODE]
