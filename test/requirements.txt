@@ -1,4 +1,3 @@
 argparse
-re
 subprocess
 collections
