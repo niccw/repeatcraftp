@@ -118,8 +118,8 @@ def rcstat(rclabelp,rmergep,outfile,ltrgroup=True):
 			if re.search("LTR",c):
 				try:
 					print(*[c,teD[c],ltrD[c]],sep="\t")
-			else:
-				print(*[c,teD[c],""],sep="\t")
+				else:
+					print(*[c,teD[c],""],sep="\t")
 		else:
 			print(*[c, teD[c], ""], sep="\t")
 
