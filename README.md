@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/niccw/repeatcraftp.svg?branch=master)](https://travis-ci.org/niccw/repeatcraftp)
 # RepeatCraft pipeline
 
 #### Introduction
