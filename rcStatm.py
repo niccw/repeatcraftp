@@ -116,7 +116,8 @@ def rcstat(rclabelp,rmergep,outfile,ltrgroup=True):
 	for c in list(teD.keys()):
 		if ltrgroup:
 			if re.search("LTR",c):
-				print(*[c,teD[c],ltrD[c]],sep="\t")
+				try:
+					print(*[c,teD[c],ltrD[c]],sep="\t")
 			else:
 				print(*[c,teD[c],""],sep="\t")
 		else:
