@@ -12,7 +12,7 @@ def reformat(rmgff,rmout,outfile):
 		for i in range(3):  # Skip header
 			next(f)
 		for line in f:
-			[_, _, _, _, _, _, _, _, _, repeat, repeatClass, _, _, _, _] = line.rstrip().split()[0:14]
+			[_, _, _, _, _, _, _, _, _, repeat, repeatClass, _, _, _] = line.rstrip().split()[0:14]
 			classD[repeat] = repeatClass
 
 	# Rewrite the attr in repeatmasker gff
