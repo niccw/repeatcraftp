@@ -80,7 +80,7 @@ gap_size: 150
 
 If **mapfile.tsv** (see example) is missing, a unite size (default = 100 bp) will by applied to all repeat classes. Since certain repeat classes (i.e. SINE) have shorter length compare to others (i.e. LTR or LINE), it is recommend to label different classes using different length threshold.
 
-To incoporate the LTR_FINDER annotation, the path (absolute path is preferable, if relative path is used it should be relative to where the **repeatcraft.py** is in) should be stated in **ltr_finder_gff** field. The **max_LTR_size** helps filter out overlapping LTR annotation from LTR_FINDER, and  **LTR_flanking_size** allows shift of LTR annotated by RepeatMasker. The following figure shows how these two parameters work.
+To incoporate the LTR_FINDER annotation, the path (absolute path is preferable, if relative path is used it should be relative to where the **repeatcraft.py** is in) should be stated in **ltr_finder_gff** field. If no LTR_FINDER annotation is available, specify None in that field. The **max_LTR_size** helps filter out overlapping LTR annotation from LTR_FINDER, and  **LTR_flanking_size** allows shift of LTR annotated by RepeatMasker. The following figure shows how these two parameters work.
 
 ![fig.4](figures/fuseltr_param.png )
 
