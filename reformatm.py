@@ -9,11 +9,12 @@ def reformat(rmgff,rmout,outfile):
 
 	classD = {}
 	with open(rmout, "r") as f:
-		for i in range(3):  # Skip header
-			next(f)
 		for line in f:
-			[_, _, _, _, _, _, _, _, _, repeat, repeatClass, _, _, _] = line.rstrip().split()[0:14]
-			classD[repeat] = repeatClass
+			if line.startswith("#"):
+				next(f)
+			else:
+				[_, _, _, _, _, _, _, _, _, repeat, repeatClass, _, _, _] = line.rstrip().split()[0:14]
+				classD[repeat] = repeatClass
 
 	# Rewrite the attr in repeatmasker gff
 	print("##gff-version 3")
