@@ -47,7 +47,9 @@ Example run:
 `./repeatcraft.py -r example_input.gff -u example_input.out -c repeatcraft.cfg -o example -m strict`
 
 ##### Run in docker container
+**Build image from Dockerfile**
 `docker built -t repeatcraft:v1 .`
+**Run repeatcraft inside docker conatiner**
 `docker run --rm -v "PATH_TO_INPUT_FILES":/repeatcraft/run  repeatcraft:v1 ./repeatcraft.py -r run/your_input.gff -u run/your_input.out -c run/your_repeatcraft.cfg -o example -m strict`
 
 
