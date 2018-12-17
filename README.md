@@ -49,6 +49,8 @@ Example run:
 ### Run in docker container
 **Build image from Dockerfile**
 
+`git clone https://github.com/niccw/repeatcraftp.git && cd repeatcraftp`
+
 `docker built -t repeatcraft:v1 .`
 
 **Run repeatcraft inside docker conatiner**
