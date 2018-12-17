@@ -46,7 +46,7 @@ optional arguments:
 Example run:
 `./repeatcraft.py -r example_input.gff -u example_input.out -c repeatcraft.cfg -o example -m strict`
 
-##### Run in docker container
+### Run in docker container
 **Build image from Dockerfile**
 
 `docker built -t repeatcraft:v1 .`
