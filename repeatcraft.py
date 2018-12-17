@@ -7,6 +7,8 @@ import os
 import subprocess
 from subprocess import call
 
+sys.path.append("./helper")
+
 import reformatm
 import combineGFFoverlapm
 import filtershortm
