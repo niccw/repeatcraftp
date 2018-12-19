@@ -51,7 +51,7 @@ Example run:
 
 `git clone https://github.com/niccw/repeatcraftp.git && cd repeatcraftp`
 
-`docker built -t repeatcraft:v1 .`
+`docker build -t repeatcraft:v1 .`
 
 **Run repeatcraft inside docker conatiner**
 
