@@ -7,7 +7,7 @@ import os
 import subprocess
 from subprocess import call
 
-sys.path.append("./helper")
+sys.path.append(os.path.join(sys.path[0],"helper"))
 
 import reformatm
 import combineGFFoverlapm
