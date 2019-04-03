@@ -16,7 +16,7 @@ def reformat(rmgff,rmout,outfile):
 			classD[repeat] = repeatClass
 
 	# Rewrite the attr in repeatmasker gff
-	print("##gff-version 3")
+	print("## gff-version 3")
 	with open(rmgff, "r") as f:
 		for line in f:
 			if line.startswith("#"):  # skip header
