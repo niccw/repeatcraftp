@@ -29,22 +29,32 @@ def trumergeLTR(rmgff,outfile):
 	}
 
 	# Number of row of header
-	cnt = 0
-	with open(gff, "r") as f:
-		for line in f:
-			cnt += 1
-			if not line.startswith("#"):
-				cnt -= 1
-				break
+	#cnt = 0
+	#with open(gff, "r") as f:
+	#	for line in f:
+	#		cnt += 1
+	#		if not line.startswith("#"):
+	#			cnt -= 1
+	#			break
 
 
 	print("##gff-version 3")
 	with open(gff, "r") as f:
-		for i in range(cnt):
-			next(f)
 		for line in f:
+			if line.startswith("#"):
+				continue
 			col = line.rstrip().split("\t")
-			ltrgroup = re.findall(r"LTRgroup=(.*)$", col[8])
+			try:
+				ltrgroup = re.findall(r"LTRgroup=(.*)$", col[8])
+			except IndexError as index_err:
+				print("Error parsing intermediate file " + gff, file=sys.stderr)
+				print(line, file=sys.stderr)
+				skip_line = input("Skip this line? (Y/N)")
+				if skip_line.upper() == N:
+					sys.exit("Error in merging fragment.")
+				else:
+					continue
+				
 			if len(ltrgroup) > 0:
 				ltrgroup = ltrgroup[0]  # to string
 			else:
