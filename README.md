@@ -98,6 +98,10 @@ To incoporate the LTR_FINDER annotation, the path (absolute path is preferable, 
 
 Finally, **gap_size** refer to the maximum distance between two constitute repeats to be merged, by default it is 150 bp.
 ***
+
+#### TODO
+Improve the loose merge algorthm.
+
 #### References
 JC Estill and JL Bennetzen. 2009. "The DAWGPAWS pipeline for the annotation of genes and transposable elements in plant genomes." Plant Methods. 5:8
 
