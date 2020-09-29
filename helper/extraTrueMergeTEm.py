@@ -17,21 +17,13 @@ def extratruemergete(gffp,outfile):
 
 
 	# Check number of row of header
-	cnt = 0
-	with open(gff, "r") as f:
-		for line in f:
-			cnt += 1
-			if not line.startswith("#"):
-				cnt -= 1
-				break
-
 	print("##gff-version 3")
 	print("##repeatcraft")
 
 	with open(gff, "r") as f:
-		for i in range(cnt):
-			next(f)
 		for line in f:
+			if line.startswith("#"):
+				continue
 			col = line.rstrip().split("\t")
 
 			# if changing to the last column, need to print the what havn't print out (all groups in the last chrom)
