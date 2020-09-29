@@ -29,6 +29,8 @@ parser.add_argument("-o", "--output", help="Output file name", default="repeatcr
 parser.add_argument("-m", "--mode",
                     help="Merge mode. strict or loose. Default = loose",
                     default="loose", type=str)
+parser.add_argument("-d", "--debug",  action="store_true",help="Debug mode. Keep all temporary files.")
+
 args = parser.parse_args()
 
 if len(sys.argv) <= 1:
@@ -189,17 +191,20 @@ try:
 			rcStatm.rcstat(rclabelp=outputnamelabel,rmergep=outputnamemerge, outfile=statfname, ltrgroup = False)
 finally:
 	# Remove tmp files
-	sys.stderr.write("Removing tmp files...\n")
-	os.remove("tmp01.unsort.gff")
-	os.remove("tmp01.gff")
-	os.remove("tmp02.gff")
-	if mergemode != "strict":
-		os.remove(outputnamelabel_tobesort)
-		os.remove(outputnamemerge_tobesort)
-	if checkltr:
-		os.remove("tmp03.gff")
-		os.remove("ltrmerge.tmp.gff")
-		os.remove("parseltrfinder.tmp")
-		os.remove("parseltrfinder.tmp2")
-		os.remove("ltrfinder_reformat.gff")
+	if args.debug is not True:
+		sys.stderr.write("Removing tmp files...\n")
+		os.remove("tmp01.unsort.gff")
+		os.remove("tmp01.gff")
+		os.remove("tmp02.gff")
+		if mergemode != "strict":
+			os.remove(outputnamelabel_tobesort)
+			os.remove(outputnamemerge_tobesort)
+		if checkltr:
+			os.remove("tmp03.gff")
+			os.remove("ltrmerge.tmp.gff")
+			os.remove("parseltrfinder.tmp")
+			os.remove("parseltrfinder.tmp2")
+			os.remove("ltrfinder_reformat.gff")
+	else:
+		sys.stderr.write("Debug mode, keep all temporary files...\n")
 	sys.stderr.write("Done\n")
