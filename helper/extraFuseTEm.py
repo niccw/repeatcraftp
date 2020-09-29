@@ -23,20 +23,13 @@ def truefusete(gffp,gapsize,outfile):
 	# Progress
 	dcnt = 0
 
-	# Check number of row of header
-	with open(gff, "r") as f:
-		for line in f:
-			cnt += 1
-			if not line.startswith("#"):
-				cnt -= 1
-				break
 
 	print("##gff-version 3")
 	print("##repeatcraft")
 	with open(gff, "r") as f:
-		for i in range(cnt):
-			next(f)
 		for line in f:
+			if line.startswith("#"):
+				continue
 			# Progress
 			dcnt += 1
 			sys.stderr.write("\rProgress:" + str(dcnt) + "/"+ totalline+ "...")
