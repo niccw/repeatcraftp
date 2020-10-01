@@ -26,20 +26,10 @@ def rcstat(rclabelp,rmergep,outfile,ltrgroup=True):
 	teflag = False
 	ltrflag = False
 
-
-	# Check number of row of header
-	cnt = 0
-	with open(rlabel, "r") as f:
-		for line in f:
-			cnt += 1
-			if not line.startswith("#"):
-				cnt -= 1
-				break
-
 	with open(rlabel,"r") as f:
-		for i in range(cnt):
-			next(f)
 		for line in f:
+			if line.startswith("#"):
+				continue
 			col = line.rstrip().split("\t")
 
 			'''
